@@ -3,74 +3,99 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Server Maintenance</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<title>Server Under Maintenance</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 <style>
-body {
+html, body {
   margin: 0;
   padding: 0;
+  height: 100%;
   font-family: 'Roboto', sans-serif;
-  color: #f8fafc;
+  color: #fff;
+  overflow: hidden;
+}
+
+body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
   flex-direction: column;
+  background: linear-gradient(270deg, #1e3a8a, #9333ea, #f43f5e, #1e3a8a);
+  background-size: 600% 600%;
+  animation: gradientMove 20s ease infinite;
   text-align: center;
-  background: linear-gradient(-45deg, #0f172a, #1e293b, #334155, #0f172a);
-  background-size: 400% 400%;
-  animation: gradientBG 10s ease infinite;
+  position: relative;
+}
+
+@keyframes gradientMove {
+  0% {background-position: 0% 50%;}
+  50% {background-position: 100% 50%;}
+  100% {background-position: 0% 50%;}
 }
 
 h1 {
-  font-size: 2.2em;
-  margin-bottom: 0.2em;
+  font-size: 2.5em;
+  margin: 0.2em;
+  text-shadow: 0 0 15px #f43f5e;
 }
 
 p {
-  margin: 0.5em 0;
-  font-size: 1.1em;
+  margin: 0.3em;
+  font-size: 1.2em;
+  color: #f3f4f6;
 }
 
 #timer {
   font-family: 'Orbitron', sans-serif;
-  font-size: 2.5em;
-  margin: 1em 0;
+  font-size: 2.8em;
+  margin: 0.5em 0;
   color: #facc15;
+  text-shadow: 0 0 10px #facc15;
 }
 
 .maintenance-icon {
-  font-size: 5em;
-  color: #f87171;
-  animation: shake 1.5s infinite;
+  font-size: 6em;
+  margin-bottom: 0.2em;
+  animation: pulse 2s infinite;
+  text-shadow: 0 0 25px #fb7185;
 }
 
-@keyframes shake {
-  0% { transform: rotate(0deg); }
-  25% { transform: rotate(5deg); }
-  50% { transform: rotate(-5deg); }
-  75% { transform: rotate(5deg); }
-  100% { transform: rotate(0deg); }
+@keyframes pulse {
+  0% {transform: scale(1);}
+  50% {transform: scale(1.1);}
+  100% {transform: scale(1);}
 }
 
-@keyframes gradientBG {
-  0% {background-position: 0% 50%;}
-  50% {background-position: 100% 50%;}
-  100% {background-position: 0% 50%;}
+/* Particle background canvas */
+#particles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0; left: 0;
+  z-index: 0;
+}
+.content {
+  position: relative;
+  z-index: 1;
 }
 </style>
 </head>
 <body>
 
-<div class="maintenance-icon">🛠️</div>
-<h1>Server Under Maintenance</h1>
-<p>We are currently performing some upgrades.</p>
-<p>Estimated time to completion:</p>
-<div id="timer">Loading...</div>
+<canvas id="particles"></canvas>
+
+<div class="content">
+  <div class="maintenance-icon">🛠️</div>
+  <h1>Server Under Maintenance</h1>
+  <p>We’re working on improvements.</p>
+  <p>Estimated time to completion:</p>
+  <div id="timer">Loading…</div>
+</div>
 
 <audio id="end-sound" src="https://www.soundjay.com/buttons/sounds/beep-07.mp3" preload="auto"></audio>
 
 <script>
+// Countdown Logic
 const targetDate = new Date('August 1, 2025 00:00:00').getTime();
 const timerEl = document.getElementById("timer");
 const sound = document.getElementById("end-sound");
@@ -82,10 +107,10 @@ const interval = setInterval(() => {
   if (distance <= 0) {
     clearInterval(interval);
     sound.play();
-    timerEl.textContent = "Redirecting...";
+    timerEl.textContent = "Redirecting…";
     setTimeout(() => {
-      window.location.href = "https://example.com"; // <-- your redirect URL here
-    }, 3000); // give user 3 seconds to hear sound
+      window.location.href = "https://example.com";
+    }, 3000);
     return;
   }
 
@@ -94,9 +119,66 @@ const interval = setInterval(() => {
   const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
   const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-  timerEl.textContent = 
+  timerEl.textContent =
     `${days}d ${hours}h ${minutes}m ${seconds}s`;
 }, 1000);
+
+// Particle Background
+const canvas = document.getElementById("particles");
+const ctx = canvas.getContext("2d");
+
+let particlesArray;
+
+function initParticles() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  particlesArray = [];
+  const numParticles = 100;
+
+  for (let i = 0; i < numParticles; i++) {
+    particlesArray.push(new Particle());
+  }
+}
+
+class Particle {
+  constructor() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.size = Math.random() * 2 + 1;
+    this.speedX = (Math.random() - 0.5) * 0.5;
+    this.speedY = (Math.random() - 0.5) * 0.5;
+  }
+  update() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+
+    if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+    if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+  }
+  draw() {
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particlesArray.forEach(p => {
+    p.update();
+    p.draw();
+  });
+  requestAnimationFrame(animate);
+}
+
+window.addEventListener('resize', () => {
+  initParticles();
+});
+
+initParticles();
+animate();
 </script>
 
 </body>
