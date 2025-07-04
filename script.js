@@ -79,4 +79,3 @@ window.addEventListener('resize', () => {
 
 initParticles();
 animate();
-</script
