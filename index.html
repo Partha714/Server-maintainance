@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Server Maintenance</title>
+<style>
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #0f172a;
+  color: #f8fafc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2em;
+  margin-bottom: 0.2em;
+}
+
+p {
+  margin: 0.5em 0;
+}
+
+#timer {
+  font-size: 2.5em;
+  margin: 1em 0;
+  color: #facc15;
+}
+
+.maintenance-icon {
+  font-size: 5em;
+  color: #f87171;
+  animation: shake 1.5s infinite;
+}
+
+@keyframes shake {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(5deg); }
+  50% { transform: rotate(-5deg); }
+  75% { transform: rotate(5deg); }
+  100% { transform: rotate(0deg); }
+}
+</style>
+</head>
+<body>
+
+<div class="maintenance-icon">🛠️</div>
+<h1>Server Under Maintenance</h1>
+<p>We are currently performing some upgrades.</p>
+<p>Estimated time to completion:</p>
+<div id="timer">Loading...</div>
+
+<script>
+const targetDate = new Date('July 1, 2025 00:00:00').getTime();
+const timerEl = document.getElementById("timer");
+
+const interval = setInterval(() => {
+  const now = new Date().getTime();
+  const distance = targetDate - now;
+
+  if (distance <= 0) {
+    clearInterval(interval);
+    window.location.href = "https://example.com"; // <-- your redirect URL here
+    return;
+  }
+
+  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  timerEl.textContent = 
+    `${days}d ${hours}h ${minutes}m ${seconds}s`;
+}, 1000);
+</script>
+
+</body>
+</html>
