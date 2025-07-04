@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Server Maintenance</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 <style>
 body {
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
-  background-color: #0f172a;
+  font-family: 'Roboto', sans-serif;
   color: #f8fafc;
   display: flex;
   justify-content: center;
@@ -17,18 +17,23 @@ body {
   height: 100vh;
   flex-direction: column;
   text-align: center;
+  background: linear-gradient(-45deg, #0f172a, #1e293b, #334155, #0f172a);
+  background-size: 400% 400%;
+  animation: gradientBG 10s ease infinite;
 }
 
 h1 {
-  font-size: 2em;
+  font-size: 2.2em;
   margin-bottom: 0.2em;
 }
 
 p {
   margin: 0.5em 0;
+  font-size: 1.1em;
 }
 
 #timer {
+  font-family: 'Orbitron', sans-serif;
   font-size: 2.5em;
   margin: 1em 0;
   color: #facc15;
@@ -47,6 +52,12 @@ p {
   75% { transform: rotate(5deg); }
   100% { transform: rotate(0deg); }
 }
+
+@keyframes gradientBG {
+  0% {background-position: 0% 50%;}
+  50% {background-position: 100% 50%;}
+  100% {background-position: 0% 50%;}
+}
 </style>
 </head>
 <body>
@@ -57,9 +68,12 @@ p {
 <p>Estimated time to completion:</p>
 <div id="timer">Loading...</div>
 
+<audio id="end-sound" src="https://www.soundjay.com/buttons/sounds/beep-07.mp3" preload="auto"></audio>
+
 <script>
 const targetDate = new Date('July 1, 2025 00:00:00').getTime();
 const timerEl = document.getElementById("timer");
+const sound = document.getElementById("end-sound");
 
 const interval = setInterval(() => {
   const now = new Date().getTime();
@@ -67,7 +81,11 @@ const interval = setInterval(() => {
 
   if (distance <= 0) {
     clearInterval(interval);
-    window.location.href = "https://example.com"; // <-- your redirect URL here
+    sound.play();
+    timerEl.textContent = "Redirecting...";
+    setTimeout(() => {
+      window.location.href = "https://example.com"; // <-- your redirect URL here
+    }, 3000); // give user 3 seconds to hear sound
     return;
   }
 
