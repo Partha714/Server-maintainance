@@ -33,7 +33,7 @@ function initParticles() {
   canvas.height = window.innerHeight;
 
   particlesArray = [];
-  const numParticles = 1000;
+  const numParticles = 100;
 
   for (let i = 0; i < numParticles; i++) {
     particlesArray.push(new Particle());
