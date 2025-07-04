@@ -6,7 +6,6 @@ html, body {
   color: #fff;
   overflow: hidden;
 }
-
 body {
   display: flex;
   justify-content: center;
@@ -18,25 +17,21 @@ body {
   text-align: center;
   position: relative;
 }
-
 @keyframes gradientMove {
   0% {background-position: 0% 50%;}
   50% {background-position: 100% 50%;}
   100% {background-position: 0% 50%;}
 }
-
 h1 {
   font-size: 2.5em;
   margin: 0.2em;
   text-shadow: 0 0 15px #f43f5e;
 }
-
 p {
   margin: 0.3em;
   font-size: 1.2em;
   color: #f3f4f6;
 }
-
 #timer {
   font-family: 'Orbitron', sans-serif;
   font-size: 2.8em;
@@ -44,21 +39,17 @@ p {
   color: #facc15;
   text-shadow: 0 0 10px #facc15;
 }
-
 .maintenance-icon {
   font-size: 6em;
   margin-bottom: 0.2em;
   animation: pulse 2s infinite;
   text-shadow: 0 0 25px #fb7185;
 }
-
 @keyframes pulse {
   0% {transform: scale(1);}
   50% {transform: scale(1.1);}
   100% {transform: scale(1);}
 }
-
-/* Particle background canvas */
 #particles {
   position: absolute;
   width: 100%;
