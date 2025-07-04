@@ -1,4 +1,3 @@
-
 const targetDate = new Date('August 1, 2025 00:00:00').getTime();
 const timerEl = document.getElementById("timer");
 const interval = setInterval(() => {
@@ -34,7 +33,7 @@ function initParticles() {
   canvas.height = window.innerHeight;
 
   particlesArray = [];
-  const numParticles = 100;
+  const numParticles = 1000;
 
   for (let i = 0; i < numParticles; i++) {
     particlesArray.push(new Particle());
