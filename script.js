@@ -7,7 +7,7 @@ const interval = setInterval(() => {
 
   if (distance <= 0) {
     clearInterval(interval);
-    sound.play();
+    // sound.play();
     timerEl.textContent = "Redirecting…";
     setTimeout(() => {
       window.location.href = "https://optometristpportfolio.netlify.app";
