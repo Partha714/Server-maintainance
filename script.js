@@ -1,5 +1,5 @@
-// const targetDate = new Date('August 1, 2025 00:00:00').getTime();
-const targetDate = new Date('July 30, 2025 00:00:00').getTime();
+const targetDate = new Date('August 1, 2025 00:00:00').getTime();
+// const targetDate = new Date('July 30, 2025 00:00:00').getTime();
 const timerEl = document.getElementById("timer");
 const interval = setInterval(() => {
   const now = new Date().getTime();
