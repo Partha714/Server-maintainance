@@ -9,7 +9,7 @@ const interval = setInterval(() => {
     sound.play();
     timerEl.textContent = "Redirecting…";
     setTimeout(() => {
-      window.location.href = "https://example.com";
+      window.location.href = "https://optometristpportfolio.netlify.app";
     }, 3000);
     return;
   }
